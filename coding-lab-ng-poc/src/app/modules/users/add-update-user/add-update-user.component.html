@@ -53,8 +53,8 @@
                </div>
 
                <button type="submit" class="btn btn-primary">
-                   <span *ngIf="isAddNewFreelancerPage">Create</span>
-                   <span *ngIf="!isAddNewFreelancerPage">Save</span>
+                   <span *ngIf="addMode">Create</span>
+                   <span *ngIf="!addMode">Save</span>
                </button>
              </form>
          </div>
