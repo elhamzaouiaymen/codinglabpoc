@@ -11,7 +11,7 @@
 
            <div class="form-group">
                 <label for="exampleInputEmail1">Description</label>
-                <textarea type="text" class="form-control" formControlName="last_name" placeholder="Example : We are hiring a ux/ui ninja ...">
+                <textarea type="text" cols="30" rows="10" class="form-control" formControlName="description" placeholder="Example : We are hiring a ux/ui ninja ..."></textarea>
                 <small *ngIf="formMatcher.isErrorState(jobForm.controls.last_name, jobForm)" id="titleError" class="form-text text-danger">This field is required</small>
            </div>
 

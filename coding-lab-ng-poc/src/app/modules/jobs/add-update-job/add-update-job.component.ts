@@ -49,13 +49,13 @@ export class AddUpdateJobComponent implements OnInit {
   }
 
   unsubscribeFromAllSubscription(){
-    this.activatedRouteParamsSubscription.unsubscribe()
-    this.fetchJobSubscription.unsubscribe()
-    this.createJobSubscription.unsubscribe()
-    this.updateJobSubscription.unsubscribe()
+    if( this.activatedRouteParamsSubscription !== undefined) this.activatedRouteParamsSubscription.unsubscribe()
+    if( this.fetchJobSubscription !== undefined) this.fetchJobSubscription.unsubscribe()
+    if( this.createJobSubscription !== undefined) this.createJobSubscription.unsubscribe()
+    if( this.updateJobSubscription !== undefined) this.updateJobSubscription.unsubscribe()
   }
 
-  addOrUpdateUser(){
+  addOrUpdateJob(){
     this.jobForm['submitted'] = true;
     if(this.jobForm.valid){
 

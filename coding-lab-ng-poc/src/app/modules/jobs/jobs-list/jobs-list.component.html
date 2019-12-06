@@ -16,9 +16,9 @@
               <td>{{job.description}}</td>
               <td>
                   <div class="d-block">
-                      <button (click)="remove(job.$id)" class="btn btn-danger btn-md btn-primary ml-1">Delete</button>
-                      <button [routerLink]="['update', job.$id]"  class="btn btn-success btn-md btn-primary ml-1">Update</button>
-                      <button [routerLink]="['job', job.$id]"  class="btn btn-md btn-primary ml-1">Job Details</button>
+                      <button (click)="remove(job.id)" class="btn btn-danger btn-md btn-primary ml-1">Delete</button>
+                      <button [routerLink]="['update', job.id]"  class="btn btn-success btn-md btn-primary ml-1">Update</button>
+                      <button [routerLink]="['job', job.id]"  class="btn btn-md btn-primary ml-1">Job Details</button>
                   </div>
               </td>
             </tr>
@@ -27,6 +27,10 @@
 
         <app-data-paginator [data]="jobs"></app-data-paginator>
   </div>
+
+  <ng-template #alert>
+    <app-popup-alert [alertData]="alertData"></app-popup-alert>
+  </ng-template>
   
 
 
