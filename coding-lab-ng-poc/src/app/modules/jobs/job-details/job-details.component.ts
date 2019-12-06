@@ -3,6 +3,8 @@ import { Job } from '../../../models/job.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EntityService } from '../../../services/entity.service';
 import { Subscription } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-job-details',
@@ -16,7 +18,7 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
   activatedRouteSubscription: Subscription;
   fetchCurrentJobSubscription: Subscription;
 
-  constructor(private router: Router,
+  constructor(private spinnerService: NgxSpinnerService,
               private activatedRoute: ActivatedRoute,
               private backendService: EntityService<Job>) {
 
@@ -36,11 +38,25 @@ export class JobDetailsComponent implements OnInit, OnDestroy {
   }
 
   fetchCurrentJob(){
+    this.showLoader();
     if(this.jobId !== undefined){
       this.fetchCurrentJobSubscription = this.backendService.findById(Job, this.jobId).subscribe((job: Job) => {
         this.job = job
+        this.hideLoader()
+      }, (error: HttpErrorResponse) => {
+        console.log(error.message)
       })
     }
+  }
+
+  showLoader(){
+    this.spinnerService.show()
+  }
+
+  hideLoader(){
+    setTimeout(() => {
+      this.spinnerService.hide()
+    }, 500);
   }
 
 }
