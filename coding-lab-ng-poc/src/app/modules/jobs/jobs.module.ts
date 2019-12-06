@@ -7,6 +7,7 @@ import { AddUpdateJobComponent } from './add-update-job/add-update-job.component
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../../components/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [JobsListComponent, JobDetailsComponent, AddUpdateJobComponent],
@@ -16,7 +17,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     JobsRoutingModule,
-    SharedModule
+    SharedModule,
+    NgxSpinnerModule
   ]
 })
 export class JobsModule { }

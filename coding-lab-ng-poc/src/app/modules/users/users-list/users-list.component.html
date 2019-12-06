@@ -40,7 +40,13 @@
               </tr>
             </tbody>
           </table>
-  
-          <app-data-paginator [data]="users"></app-data-paginator>
+
+          <div class="card-footer">
+              <button class="btn btn-success btn-md">Add New User</button>
+          </div>
     </div>
   </div>
+
+  <ng-template #alert>
+    <app-popup-alert [alertData]="alertData"></app-popup-alert>
+  </ng-template>

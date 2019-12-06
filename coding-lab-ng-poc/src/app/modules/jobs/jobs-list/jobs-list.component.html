@@ -1,4 +1,15 @@
 <div class="container p-4">
+    <ngx-spinner
+    bdOpacity = 0.9
+    bdColor = "#333"
+    size = "medium"
+    color = "#fff"
+    type = "ball-newton-cradle"
+    [fullScreen] = "true"
+    >
+    <p style="color: white" > Loading... </p>
+  </ngx-spinner>
+
   <div class="card">
       <table class="table">
           <thead class="thead-dark">
@@ -11,21 +22,22 @@
           </thead>
           <tbody>
             <tr *ngFor="let job of jobs">
-              <th scope="row">{{job.$id}}</th>
+              <th scope="row">{{job.id}}</th>
               <td>{{job.title}}</td>
               <td>{{job.description}}</td>
-              <td>
+              <td class="w-25">
                   <div class="d-block">
                       <button (click)="remove(job.id)" class="btn btn-danger btn-md btn-primary ml-1">Delete</button>
                       <button [routerLink]="['update', job.id]"  class="btn btn-success btn-md btn-primary ml-1">Update</button>
-                      <button [routerLink]="['job', job.id]"  class="btn btn-md btn-primary ml-1">Job Details</button>
+                      <button [routerLink]="['job', job.id]"  class="btn btn-md btn-primary ml-1">Details</button>
                   </div>
               </td>
             </tr>
           </tbody>
         </table>
-
-        <app-data-paginator [data]="jobs"></app-data-paginator>
+        <div class="card-footer">
+            <button class="btn btn-success btn-md" [routerLink]="['add']">Add New Job</button>
+        </div>
   </div>
 
   <ng-template #alert>
