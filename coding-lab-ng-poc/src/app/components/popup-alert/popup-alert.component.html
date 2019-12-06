@@ -1,0 +1,14 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">{{alertData._title}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="performNegativeAction()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+        {{alertData._text}}
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="performPositiveAction()" >{{alertData._positiveAction}}</button>
+    <button type="button" class="btn btn-default" (click)="performNegativeAction()" >{{alertData._negativeAction}}</button>
+</div>

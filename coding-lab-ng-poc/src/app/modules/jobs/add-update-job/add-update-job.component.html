@@ -1,0 +1,21 @@
+<div class="container">
+        <div class="shadow p-4 m-4">
+            <h3>Add new job</h3>
+            <hr class="dropdown-divider">
+            <form class="w-50 pt-4" [formGroup]="jobForm">
+               <div class="form-group">
+                    <label for="exampleInputEmail1">Title</label>
+                    <input type="text" class="form-control" formControlName="title" aria-describedby="emailHelp" placeholder="Job title">
+                    <small id="titleError" class="form-text text-danger">This field is required</small>
+               </div>
+
+               <div class="form-group">
+                    <label for="exampleInputEmail1">Description</label>
+                    <textarea class="form-control" formControlName="description" name="descriptionTextArea" placeholder="Describe your gig here ..." id="descriptionTextArea" cols="30" rows="10"></textarea>
+                    <small id="titleError" class="form-text text-danger">This field is required</small>
+                </div>
+               <button type="submit" class="btn btn-primary">Submit</button>
+             </form>
+         </div>
+        
+</div>

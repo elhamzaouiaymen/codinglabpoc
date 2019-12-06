@@ -1,0 +1,50 @@
+<div class="container p-4">
+    <ngx-spinner
+      bdOpacity = 0.9
+      bdColor = "#333"
+      size = "medium"
+      color = "#fff"
+      type = "ball-newton-cradle"
+      [fullScreen] = "true"
+      >
+      <p style="color: white" > Loading... </p>
+    </ngx-spinner>
+
+    <div class="card">
+        <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Date of Birth</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Hourly Rate</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+              <tr *ngFor="let user of users">
+                <th scope="row">{{user.$id}}</th>
+                <td>{{user.name}}</td>
+                <td>{{user.date_of_birth}}</td>
+                <td>{{user.gender}}</td>
+                <td>{{user.hourly_rate}}$/Hour</td>
+                <td>
+                    <div class="d-block">
+                        <button (click)="remove(user.id, alert)" class="btn btn-md btn-danger ml-1">Delete</button>
+                        <button [routerLink]="['update', user.id]"  class="btn btn-success btn-md btn-primary ml-1">Update</button>
+                        <button [routerLink]="['user', user.id]"  class="btn btn-md btn-primary ml-1">Infos</button>
+                    </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+  
+          <app-data-paginator [data]="users"></app-data-paginator>
+    </div>
+  </div>
+
+  <ng-template #alert>
+    <app-popup-alert [alertData]="alertData"></app-popup-alert>
+  </ng-template>
