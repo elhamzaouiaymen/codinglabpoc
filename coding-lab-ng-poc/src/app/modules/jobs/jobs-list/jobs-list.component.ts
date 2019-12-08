@@ -36,7 +36,7 @@ export class JobsListComponent implements OnInit {
   }
 
   unsubscribeFromAllSubscriptions(){
-    this.fetchJobsSubscription.unsubscribe()
+    if(this.fetchJobsSubscription!== undefined) this.fetchJobsSubscription.unsubscribe()
   }
 
   showLoader(){
