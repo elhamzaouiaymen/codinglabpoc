@@ -6,7 +6,6 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { EntityService } from '../../../services/entity.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { PopupService } from '../../../services/popup.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -22,7 +21,6 @@ export class JobsListComponent implements OnInit {
   constructor(private backendApiService: EntityService<Job>, 
               private toastrService: ToastrService,
               private spinnerService: NgxSpinnerService,
-              private _ps: PopupService,
               private modalService: BsModalService) {}
 
   ngOnInit() {
@@ -51,26 +49,20 @@ export class JobsListComponent implements OnInit {
     }, 500);
   }
 
-  remove(uid: number, tmpl: TemplateRef<any>){
+  remove(jid: number, tmpl: TemplateRef<any>){
     this.alertData = {
+      _actionName: "delete",
       _title: "Delete Job",
       _text: "Once the job is deleted it cannot be restored. Do you confirm this action ?",
       _positiveAction: "Confirm",
-      _negativeAction: "Cancel"
+      _negativeAction: "Cancel",
+      _extraData: jid
     }
 
     this.showAlert(tmpl)
-
-    this.alertActionSubscription = this._ps.positiveActionState.subscribe((state: boolean) => {
-      if(state){
-        this.proceedUserDeletion(uid);
-      }else{
-        this.dismissAlert()
-      }
-    })
   }
 
-  proceedUserDeletion(jobId: number){
+  proceedJobDeletion(jobId: number){
     this.backendApiService.delete(Job, jobId).subscribe((response: any) => {
       this.jobs = this.jobs.filter((job: Job) => job.id !== jobId)
       this.toastrService.success('Job has been deleted successfully.')
@@ -87,6 +79,24 @@ export class JobsListComponent implements OnInit {
 
   dismissAlert(){
     this.modalRef.hide()
+  }
+
+  onAlertPositiveAction(ac: any){
+    console.log(ac)
+    switch(ac.actionName){
+      case "delete":
+        this.proceedJobDeletion(ac._extraData);  
+        break
+
+      default:
+        break;
+    }
+    
+  }
+
+  onAlertNegativeAction(ev: boolean){
+    if(ev)
+    this.dismissAlert()
   }
 
 }

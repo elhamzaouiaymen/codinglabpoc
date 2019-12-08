@@ -5,7 +5,6 @@ import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertData } from '../../../models/alert-data';
-import { PopupService } from '../../../services/popup.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Subscription } from 'rxjs';
 
@@ -23,7 +22,6 @@ export class UsersListComponent implements OnInit, OnDestroy {
   constructor(private backendApiService: EntityService<User>, 
               private toastrService: ToastrService,
               private spinnerService: NgxSpinnerService,
-              private _ps: PopupService,
               private modalService: BsModalService) {}
 
   ngOnInit() {
@@ -39,7 +37,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
   }
 
   unsubscribeFromAllSubscriptions(){
-    this.usersSubscription.unsubscribe()
+    if(this.usersSubscription !== undefined) this.usersSubscription.unsubscribe()
   }
 
   showLoader(){
@@ -54,21 +52,15 @@ export class UsersListComponent implements OnInit, OnDestroy {
 
   remove(uid: number, tmpl: TemplateRef<any>){
     this.alertData = {
+      _actionName: "delete",
       _title: "Delete user",
       _text: "Once the user is deleted it cannot be restored. Do you confirm this action ?",
       _positiveAction: "Confirm",
-      _negativeAction: "Cancel"
+      _negativeAction: "Cancel",
+      _extraData: uid
     }
 
     this.showAlert(tmpl)
-
-    this.alertActionSubscription = this._ps.positiveActionState.subscribe((state: boolean) => {
-      if(state){
-        this.proceedUserDeletion(uid);
-      }else{
-        this.dismissAlert()
-      }
-    })
   }
 
   proceedUserDeletion(uid: number){
@@ -88,6 +80,24 @@ export class UsersListComponent implements OnInit, OnDestroy {
 
   dismissAlert(){
     this.modalRef.hide()
+  }
+
+
+  onAlertPositiveAction(ac: any){
+    switch(ac.actionName){
+      case "delete":
+        this.proceedUserDeletion(ac._extraData);  
+        break
+
+      default:
+        break;
+    }
+    
+  }
+
+  onAlertNegativeAction(ev: boolean){
+    if(ev)
+    this.dismissAlert()
   }
 
 }

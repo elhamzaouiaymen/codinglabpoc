@@ -1,5 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { PopupService } from '../../services/popup.service';
+import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { AlertData } from '../../models/alert-data';
 
 @Component({
@@ -12,17 +11,27 @@ export class PopupAlertComponent implements OnInit {
   @Input()
   alertData: AlertData
 
-  constructor(private _ps: PopupService) { }
+  @Output()
+  onNegativeActionPerformed: EventEmitter<boolean> = new EventEmitter()
+
+  @Output()
+  onPosiitiveActionPerformed: EventEmitter<any> = new EventEmitter()
+
+  constructor() { }
 
   ngOnInit() {
   }
 
   performPositiveAction(){
-    this._ps.setPositiveActionState(true)
+    this.onPosiitiveActionPerformed.emit({
+      performed: true,
+      actionName: this.alertData._actionName,
+      _extraData: this.alertData._extraData
+    })
   }
 
   performNegativeAction(){
-    this._ps.setPositiveActionState(false)
+    this.onNegativeActionPerformed.emit(true)
   }
 
 }

@@ -48,5 +48,7 @@
   </div>
 
   <ng-template #alert>
-    <app-popup-alert [alertData]="alertData"></app-popup-alert>
+    <app-popup-alert  (onPosiitiveActionPerformed)="onAlertPositiveAction($event)" 
+                      (onNegativeActionPerformed)="onAlertNegativeAction($event)"
+                      [alertData]="alertData"></app-popup-alert>
   </ng-template>
