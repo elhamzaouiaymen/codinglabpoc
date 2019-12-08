@@ -16,7 +16,6 @@ import { Subscription } from 'rxjs';
 export class UsersListComponent implements OnInit, OnDestroy {
   modalRef: BsModalRef
   alertData: AlertData
-  alertActionSubscription: Subscription
   usersSubscription : Subscription
   users: User[] = []
   constructor(private backendApiService: EntityService<User>, 
@@ -68,7 +67,6 @@ export class UsersListComponent implements OnInit, OnDestroy {
       this.users = this.users.filter((user :User) => user.id !== uid)
       this.toastrService.success('User has been deleted successfully.')
       this.dismissAlert()
-      this.alertActionSubscription.unsubscribe()
     }, (err: HttpErrorResponse) => {
       this.toastrService.error(err.message)  
     })
