@@ -50,8 +50,8 @@ export class AddUpdateUserComponent implements OnInit, OnDestroy {
   }
 
   unsubscribeFromAllSubscription(){
-    this.activatedRouteParamsSubscription.unsubscribe()
-    this.fetchUserSubscription.unsubscribe()
+    if(this.activatedRouteParamsSubscription !== undefined ) this.activatedRouteParamsSubscription.unsubscribe()
+    if(this.fetchUserSubscription !== undefined ) this.fetchUserSubscription.unsubscribe()
   }
 
   addOrUpdateUser(){
